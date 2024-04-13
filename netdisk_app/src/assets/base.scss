@@ -1,0 +1,41 @@
+::-webkit-scrollbar-corner{
+    background: #bfbfbf;
+}
+:root{
+    --link:#4f4545;
+    --pink:#FF6699;
+    --text2:#64666d;
+    --icon:#9499a0;
+}
+body {
+    padding: 0px;
+    margin: 0px;
+    font-size: 14px;
+    color: #636d7e;
+}
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    outline: 0;
+    vertical-align: middle;
+}
+.a-link{
+    text-decoration: none;
+    color: var(--link);
+    cursor: pointer;
+}
+.el-form-items{
+    align-items: center;
+}
+.container-body{
+    margin: 0 auto;
+    padding-top: 5px;
+}
+.el-button{
+    .iconfont::before{
+        margin-right: 5px;
+
+    }
+}
