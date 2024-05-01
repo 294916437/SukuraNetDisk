@@ -1,2 +1,7 @@
-# SukuraNetDisk
-A web project with vue3.0+element plus for web-front and springboot+mybatis+mysql+redis for web-back
+#  vue3.0项目
+# IDE推荐为vscode，npm环境
+# 构建方式
+npm init vue@latest(初始化vue项目)
+npm install(安装相关依赖)
+npm run dev(测试运行)
+
