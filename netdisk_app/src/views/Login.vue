@@ -118,6 +118,7 @@
             <el-input
               size="large"
               clearable
+              style="width: 245px"
               placeholder="请输入验证码"
               v-model.trim="formData.checkCode"
               @keyup.enter="doSubmit"
@@ -135,12 +136,8 @@
             <el-checkbox v-model="formData.rememberMe">记住我！ </el-checkbox>
           </div>
           <div class="no-account">
-            <a href="javascript:void(0)" class="a-link" @click="showPanel(2)"
-              >忘记密码？</a
-            >
-            <a href="javascript:void(0)" class="a-link" @click="showPanel(0)"
-              >没有账号?</a
-            >
+            <a href="javascript:void(0)" class="a-link" @click="showPanel(2)">忘记密码？</a>
+            <a href="javascript:void(0)" class="a-link" @click="showPanel(0)">没有账号?</a>
           </div>
         </el-form-item>
         <el-form-item v-if="opType == 2">
@@ -237,7 +234,7 @@ const formDataRef = ref();
 const rules = {
   email: [
     { required: true, message: "请输入邮箱" },
-    { validator: proxy.Verify.email, message: "请输入正确的邮箱" },
+    { validator: proxy.Verify.email, message: "请输入正确的邮箱", trigger: "blur" },
   ],
   password: [{ required: true, message: "请输入密码" }],
   emailCode: [{ required: true, message: "请输入邮箱验证码" }],
@@ -247,11 +244,12 @@ const rules = {
     {
       validator: proxy.Verify.password,
       message: "密码只能是数字、字母、特殊字符的8-18位组合",
+      trigger: "blur",
     },
   ],
   reRegisterPassword: [
     { required: true, message: "请再次输入密码" },
-    { validator: checkRePassword, message: "两次输入的密码不一致" },
+    { validator: checkRePassword, message: "两次输入的密码不一致", trigger: "blur" },
   ],
   checkCode: [{ required: true, message: "请输入图片验证码" }],
 };
@@ -259,8 +257,7 @@ const checkCodeUrl = ref(api.checkCode);
 const checkCodeUrlforSendMailCode = ref(api.checkCode);
 const changeCheckCode = (type) => {
   if (type == 0) {
-    checkCodeUrl.value =
-      api.checkCode + "?type=" + type + "&time=" + new Date().getTime();
+    checkCodeUrl.value = api.checkCode + "?type=" + type + "&time=" + new Date().getTime();
   } else {
     checkCodeUrlforSendMailCode.value =
       api.checkCode + "?type=" + type + "&time=" + new Date().getTime();

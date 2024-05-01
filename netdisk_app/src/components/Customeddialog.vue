@@ -11,20 +11,13 @@
       :width="width + 'vw'"
       @close="close"
     >
-      <div
-        class="dialog-body"
-        :style="{ height: height + 'vh', padding: padding + 'px' }"
-      >
+      <div class="dialog-body" :style="{ height: height + 'vh', padding: padding + 'px' }">
         <slot></slot>
       </div>
       <template v-if="(buttons && buttons.length > 0) || showCancel">
         <div class="dialog-footer">
           <el-button link @click="close" v-if="showCancel">取消</el-button>
-          <el-button
-            v-for="btn in buttons"
-            :type="btn.type || 'primary'"
-            @click="btn.click"
-          >
+          <el-button v-for="btn in buttons" :type="btn.type || 'primary'" @click="btn.click">
             {{ btn.text }}
           </el-button>
         </div>

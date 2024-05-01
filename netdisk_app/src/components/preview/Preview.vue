@@ -90,7 +90,7 @@ const showPreview = (data, showPart) => {
     nextTick(() => {
       imageViewRef.value.show(0);
     });
-  } else {
+  } else if (data.fileCategory != null) {
     showWindow.value = true;
     let _url = FILE_URL_MAP[showPart].fileUrl;
     let _createDownloadUrl = FILE_URL_MAP[showPart].createDownloadUrl;

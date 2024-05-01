@@ -103,7 +103,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, getCurrentInstance, nextTick, watch, onMounted } from "vue";
+import { ref, reactive, getCurrentInstance, nextTick, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import Uploader from "./main/Uploader.vue";
 import UpdateAvatar from "./UpdateAvatar.vue";
