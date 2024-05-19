@@ -19,20 +19,13 @@
             <span class="iconfont icon-transfer"></span>
           </template>
           <template #default>
-            <Uploader
-              ref="uploaderRef"
-              @uploadCallback="uploadCallbackHandler"
-            ></Uploader>
+            <Uploader ref="uploaderRef" @uploadCallback="uploadCallbackHandler"></Uploader>
           </template>
         </el-popover>
         <el-dropdown>
           <div class="user-info">
             <div class="avatar">
-              <Avatar
-                :userId="userInfo.userId"
-                :timestamp="timestamp"
-                :width="46"
-              ></Avatar>
+              <Avatar :userId="userInfo.userId" :timestamp="timestamp" :width="46"></Avatar>
             </div>
             <span class="nick-name">{{ userInfo.nickName }}</span>
           </div>
@@ -75,8 +68,7 @@
             <div class="percent">
               <el-progress
                 :percentage="
-                  Math.floor((useSpaceInfo.useSpace / useSpaceInfo.totalSpace) * 10000) /
-                  100
+                  Math.floor((useSpaceInfo.useSpace / useSpaceInfo.totalSpace) * 10000) / 100
                 "
                 color="hsl(330, 80%, 80%)"
               ></el-progress>
@@ -93,7 +85,13 @@
       </div>
       <div class="body-content">
         <router-view v-slot="{ Component }">
-          <component :is="Component" @addFile="addFile" ref="routerViewRef"> </component>
+          <component
+            :is="Component"
+            @addFile="addFile"
+            ref="routerViewRef"
+            @reload="getUseSpace"
+          >
+          </component>
         </router-view>
       </div>
     </div>

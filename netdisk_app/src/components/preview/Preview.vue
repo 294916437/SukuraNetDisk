@@ -1,9 +1,5 @@
 <template>
-  <PreviewImage
-    ref="imageViewRef"
-    :imageList="[imageUrl]"
-    v-if="fileInfo.fileCategory == 3"
-  >
+  <PreviewImage ref="imageViewRef" :imageList="[imageUrl]" v-if="fileInfo.fileCategory == 3">
   </PreviewImage>
   <Window
     :show="showWindow"
@@ -17,10 +13,7 @@
     <PreviewDoc :url="url" v-if="fileInfo.fileType == 5"></PreviewDoc>
     <PreviewExcel :url="url" v-if="fileInfo.fileType == 6"></PreviewExcel>
     <PreviewPdf :url="url" v-if="fileInfo.fileType == 4"></PreviewPdf>
-    <PreviewTxT
-      :url="url"
-      v-if="fileInfo.fileType == 7 || fileInfo.fileType == 8"
-    ></PreviewTxT>
+    <PreviewTxT :url="url" v-if="fileInfo.fileType == 7 || fileInfo.fileType == 8"></PreviewTxT>
     <PreviewMusic
       :url="url"
       v-if="fileInfo.fileType == 2"
@@ -60,7 +53,7 @@ const closeWindow = () => {
 };
 const FILE_URL_MAP = {
   0: {
-    fileUrl: "/file/getFile/",
+    fileUrl: "/file/getFile",
     videoUrl: "/file/ts/getVideoInfo",
     createDownloadUrl: "/file/createDownloadUrl",
     downloadUrl: "/api/file/download",
@@ -101,6 +94,9 @@ const showPreview = (data, showPart) => {
     if (showPart == 0) {
       _url = _url + "/" + data.fileId;
       _createDownloadUrl = _createDownloadUrl + "/" + data.fileId;
+    } else if (showPart == 1) {
+      _url = _url + "/" + data.userId + "/" + data.fileId;
+      _createDownloadUrl = _createDownloadUrl + "/" + data.userId + "/" + data.fileId;
     }
     url.value = _url;
     createDownloadUrl.value = _createDownloadUrl;

@@ -118,7 +118,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, getCurrentInstance, nextTick, computed } from "vue";
+import { ref, getCurrentInstance, nextTick, computed } from "vue";
 import CategoryInfo from "../../js/CategoryInfo";
 import ShareFile from "./ShareFile.vue";
 const { proxy } = getCurrentInstance();
@@ -181,7 +181,7 @@ const tableOptions = ref({
   selectType: "checkbox",
   showIndex: false,
 });
-const showLoading = ref(true);
+const showLoading = ref(false);
 const fileNameFuzzy = ref();
 const category = ref();
 const loadDataList = async () => {
@@ -304,7 +304,7 @@ const editFileName = (index) => {
     editNameRef.value = focus();
   });
 };
-//文件删除
+//多选
 const selectFileIdList = ref([]);
 const rowSelected = (rows) => {
   selectFileIdList.value = [];

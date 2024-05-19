@@ -39,6 +39,9 @@
             </span>
           </div>
         </template>
+        <template #expireTime="{ index, row }">
+          {{ row.validType == 3 ? "永久" : row.expireTime }}</template
+        >
       </FileTable>
     </div>
   </div>
@@ -68,6 +71,7 @@ const columns = [
   {
     lable: "失效时间",
     prop: "expireTime",
+    scopedSlots: "expireTime",
     width: 220,
   },
   {
