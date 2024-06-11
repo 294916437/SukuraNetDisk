@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  * @Description:存储用户信息
  * @Author: 春的樱树
- * @Date: 2024-02-23
+ * @Date: 2024-05-02
  */
 public class UserInfo implements Serializable {
 	/**
@@ -30,14 +30,6 @@ public class UserInfo implements Serializable {
 	 *邮箱
 	 */
 	private String email;
-	/**
-	 *qqOpenId
-	 */
-	private String qqOpenId;
-	/**
-	 *qq头像
-	 */
-	private String qqAvatar;
 	/**
 	 *密码
 	 */
@@ -151,5 +143,4 @@ public class UserInfo implements Serializable {
 	public String toString() {
 		return "用户顺序:" + (number == null?"空": number) + ",用户ID:" + (userId == null?"空": userId) + ",昵称:" + (nickName == null?"空": nickName) + ",邮箱:" + (email == null?"空": email) + ",密码:" + (password == null?"空": password) + ",加入时间:" + (joinTime == null?"空": DateUtils.format(joinTime, DateTimePatternEnum.YYYY_MM_DD_HH_MM_SS.getPattern())) + ",最后登陆时间:" + (lastLoginTime == null?"空": DateUtils.format(lastLoginTime, DateTimePatternEnum.YYYY_MM_DD_HH_MM_SS.getPattern())) + ",0:禁用 1:启用:" + (status == null?"空": status) + ",使用空间:" + (useSpace == null?"空": useSpace) + ",总空间:" + (totalSpace == null?"空": totalSpace);
 	}
-
 }

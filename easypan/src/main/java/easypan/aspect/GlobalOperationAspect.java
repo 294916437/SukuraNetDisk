@@ -79,9 +79,9 @@ public class GlobalOperationAspect {
 		}
 	}
 	private void validateParams(Method m, Object[] arguments) throws BusinessException{
-		Parameter[] paramters=m.getParameters();
-		for (int i = 0; i < paramters.length; i++) {
-			Parameter parameter=paramters[i];
+		Parameter[] parameters=m.getParameters();
+		for (int i = 0; i < parameters.length; i++) {
+			Parameter parameter=parameters[i];
 			Object value=arguments[i];
 			VerifyParam verifyParam=parameter	.getAnnotation(VerifyParam.class);
 			if(verifyParam==null) {

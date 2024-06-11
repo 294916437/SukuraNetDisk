@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import easypan.entity.vo.FolderVO;
 import org.apache.commons.lang3.StringUtils;
 
 import easypan.component.RedisComponent;
@@ -95,7 +96,7 @@ public class CommonFileController extends ABaseController {
 		String orderBy="field(file_id,\""+StringUtils.join(pathArray,"\",\"")+"\")";
 		infoQuery.setOrderBy(orderBy);
 		List<FileInfo> fileInfoList=fileInfoService.findListByParam(infoQuery);
-		return getSuccessResponseVO(CopyTools.copyList(fileInfoList, FileInfoVO.class));
+		return getSuccessResponseVO(CopyTools.copyList(fileInfoList, FolderVO.class));
 	}
 	protected ResponseVO createDownloadUrl(String fileId,String userId) {
 		FileInfo fileInfo=fileInfoService.getByFileIdAndUserId(fileId, userId);

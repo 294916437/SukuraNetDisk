@@ -29,7 +29,7 @@ public class RecycleController extends ABaseController{
         query.setPageNo(pageNo);
         query.setPageSize(pageSize);
         query.setUserId(getUserInfoFromSession(session).getUserId());
-        query.setOrderBy("recover_time desc");
+        query.setOrderBy("recovery_time desc");
         query.setDelFlag(FileDelFlagEnums.RECYCLE.getFlag());
         PaginationResultVO result = fileInfoService.findListByPage(query);
         return getSuccessResponseVO(convertPaginationVO(result, FileInfoVO.class));
@@ -38,15 +38,16 @@ public class RecycleController extends ABaseController{
     @RequestMapping("/recoverFile")
     @GlobalInterceptor
     public ResponseVO recoverFile(HttpSession session, @VerifyParam(required = true)String fileIds) {
-        SessionWebUserDto webUserDto=new SessionWebUserDto();
+        SessionWebUserDto webUserDto=getUserInfoFromSession(session);
         fileInfoService.recoverFileBatch(webUserDto.getUserId(),fileIds);
         return getSuccessResponseVO(null);
     }
     @RequestMapping("/delFile")
     @GlobalInterceptor
     public ResponseVO delFile(HttpSession session, @VerifyParam(required = true)String fileIds) {
-        SessionWebUserDto webUserDto=new SessionWebUserDto();
+        SessionWebUserDto webUserDto=getUserInfoFromSession(session);
         fileInfoService.delFileBatch(webUserDto.getUserId(),fileIds,false);
         return getSuccessResponseVO(null);
     }
+
 }

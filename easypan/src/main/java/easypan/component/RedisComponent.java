@@ -2,6 +2,9 @@ package easypan.component;
 
 import javax.annotation.Resource;
 
+import easypan.entity.po.UserInfo;
+import easypan.entity.query.UserInfoQuery;
+import easypan.mappers.UserInfoMapper;
 import org.springframework.stereotype.Component;
 
 import easypan.entity.Constants.Constants;
@@ -18,9 +21,10 @@ public class RedisComponent {
 	private RedisUtils redisUtils;
 	@Resource
 	private FileInfoMapper<FileInfo, FileInfoQuery> fileInfoMapper;
-
+	@Resource
+	private UserInfoMapper<UserInfo, UserInfoQuery> userInfoMapper;
 	public  void saveSysSettingDto(SysSettingDto sysSettingDto){
-		redisUtils.setex(Constants.REDIS_KEY_SYS_SETTING,sysSettingDto,Constants.REDIS_KEY_EXPIRES_FIVE_MIN);
+		redisUtils.set(Constants.REDIS_KEY_SYS_SETTING,sysSettingDto);
 	}
 	public SysSettingDto getSysSettingDto() {
 		SysSettingDto sysSettingDto = (SysSettingDto) redisUtils.get(Constants.REDIS_KEY_SYS_SETTING);
@@ -30,11 +34,18 @@ public class RedisComponent {
 		}
 		return sysSettingDto;
 	}
-
 	public void saveUserSpaceUse(String userId, UserSpaceDto userSpaceDto) {
 		redisUtils.setex(Constants.REDIS_KEY_USER_SPACE_USE + userId, userSpaceDto, Constants.REDIS_KEY_EXPIRES_DAY);
 	}
-
+	public UserSpaceDto updateUserSpaceUse(String userId) {
+		UserSpaceDto userSpaceDto=new UserSpaceDto();
+		Long useSpace=this.fileInfoMapper.selectUseSpace(userId);
+		userSpaceDto.setUseSpace(useSpace);
+		UserInfo useInfo=userInfoMapper.selectByUserId(userId);
+		userSpaceDto.setTotalSpace(useInfo.getTotalSpace());
+		redisUtils.setex(Constants.REDIS_KEY_USER_SPACE_USE+userId,userSpaceDto,Constants.REDIS_KEY_EXPIRES_DAY);
+		return userSpaceDto;
+	}
 	public UserSpaceDto getUserSpace(String userId) {
 		UserSpaceDto spaceDto = (UserSpaceDto) redisUtils.get(Constants.REDIS_KEY_USER_SPACE_USE + userId);
 		if (null == spaceDto) {

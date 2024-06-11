@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class SysSettingDto implements Serializable {
 
     private String email = "";
-    private String registerMailTitle = "邮箱验证码";
+    private String registerEmailTitle = "邮箱验证码";
     private String registerEmailContent = "您好,你的邮箱验证码是:%s 有效期5分钟";
     private Integer userInitUseSpace = 1024;
 
@@ -13,12 +13,12 @@ public class SysSettingDto implements Serializable {
         this.email = email;
     }
 
-    public String getRegisterMailTitle() {
-        return registerMailTitle;
+    public String getRegisterEmailTitle() {
+        return registerEmailTitle;
     }
 
-    public void setRegisterMailTitle(String registerMailTitle) {
-        this.registerMailTitle = registerMailTitle;
+    public void setRegisterEmailTitle(String registerEmailTitle) {
+        this.registerEmailTitle = registerEmailTitle;
     }
 
     public String getRegisterEmailContent() {

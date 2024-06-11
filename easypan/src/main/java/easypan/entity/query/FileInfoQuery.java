@@ -90,6 +90,15 @@ public class FileInfoQuery extends BaseQuery {
 	
 	private String[] excludeFileIdArray;
 
+	public Boolean getQueryNickName() {
+		return queryNickName;
+	}
+
+	public void setQueryNickName(Boolean queryNickName) {
+		this.queryNickName = queryNickName;
+	}
+
+	private Boolean queryNickName;
 	public String[] getExcludeFileIdArray() {
 		return excludeFileIdArray;
 	}

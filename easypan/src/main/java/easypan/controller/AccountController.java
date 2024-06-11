@@ -112,8 +112,10 @@ public class AccountController extends ABaseController {
 	@RequestMapping("/login")
 	@GlobalInterceptor(checkParams = true, checkLogin = false)
 	@CrossOrigin(origins = "*", maxAge = 3600)
-	public ResponseVO login(HttpSession session, @VerifyParam(required = true) String email,
-			@VerifyParam(required = true) String password, @VerifyParam(required = true) String checkCode)
+	public ResponseVO login(HttpSession session,
+							@VerifyParam(required = true) String email,
+			  				@VerifyParam(required = true) String password,
+							@VerifyParam(required = true) String checkCode)
 			throws BusinessException {
 		try {
 			if (!checkCode.equalsIgnoreCase((String) session.getAttribute(Constants.CHECK_CODE_KEY))) {

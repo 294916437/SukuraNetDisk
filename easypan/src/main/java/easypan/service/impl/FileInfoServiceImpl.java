@@ -213,13 +213,12 @@ public class FileInfoServiceImpl implements FileInfoService {
             }
             File newFile = new File(tempFileFolder.getPath() + "/" + chunkIndex);
             file.transferTo(newFile);
+            // 保存临时大小
+            redisComponent.saveTempFileSize(webUserDto.getUserId(), fileId, file.getSize());
             if (chunkIndex < chunks - 1) {
                 resultDto.setStatus(UploadStatusEnums.UPLOADING.getCode());
-                // 保存临时大小
-                redisComponent.saveTempFileSize(webUserDto.getUserId(), fileId, file.getSize());
                 return resultDto;
             }
-            redisComponent.saveTempFileSize(webUserDto.getUserId(), fileId, file.getSize());
             // 最后一个分片记录数据库，异步合成分片
             String month = DateUtils.format(new Date(), DateTimePatternEnum.YYYYMM.getPattern());
             String fileSuffix = StringTools.getFileSuffix(fileName);
@@ -529,6 +528,7 @@ public class FileInfoServiceImpl implements FileInfoService {
     @Override
     //删除文件夹或到文件到回收站
     public void removeFile2RecycleBatch(String userId, String fileIds) {
+        //删除单个文件，基于回收站1标记
         String[] fileIdArray = fileIds.split(",");
         FileInfoQuery query = new FileInfoQuery();
         query.setUserId(userId);
@@ -538,7 +538,7 @@ public class FileInfoServiceImpl implements FileInfoService {
         if (fileInfoList.isEmpty()) {
             return;
         }
-        //删除文件夹操作,递归找出所有子文件给予删除标记
+        //删除文件夹操作,递归找出所有子文件给予删除0标记
         List<String> delFilePidList = new ArrayList<>();
         for (FileInfo fileInfo : fileInfoList) {
             findAllSubFolderList(delFilePidList, userId, fileInfo.getFileId(), FileDelFlagEnums.USING.getFlag());
@@ -572,7 +572,7 @@ public class FileInfoServiceImpl implements FileInfoService {
 
     }
 
-    //回收站复原文件操作
+    //回收站复原文件操作,分单个文件和文件夹
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void recoverFileBatch(String userId, String fileIds) {
@@ -652,5 +652,29 @@ public class FileInfoServiceImpl implements FileInfoService {
         UserSpaceDto userSpaceDto = redisComponent.getUserSpace(userId);
         userSpaceDto.setUseSpace(useSpace);
         redisComponent.saveUserSpaceUse(userId, userSpaceDto);
+    }
+
+    @Override
+    public void checkRootFilePid(String rootFilePid, String userId, String fileId) {
+        if(StringTools.isEmpty(fileId)){
+            throw new BusinessException(ResponseCodeEnum.CODE_600);
+        }
+        if (rootFilePid.equals(fileId)) {
+            return;
+        }
+        checkFilePid(rootFilePid, fileId, userId);
+    }
+    private  void checkFilePid(String rootFilePid,String fileId,String userId){
+        FileInfo fileInfo = this.fileInfoMapper.selectByFileIdAndUserId(fileId, userId);
+        if (fileInfo==null){
+            throw new BusinessException(ResponseCodeEnum.CODE_600);
+        }
+        if (Constants.ZERO_STR.equals(fileInfo.getFilePid())){
+            throw new BusinessException(ResponseCodeEnum.CODE_600);
+        }
+        if(fileInfo.getFilePid().equals(rootFilePid)){
+            return;
+        }
+        checkFilePid(rootFilePid,fileInfo.getFilePid(),userId);
     }
 }

@@ -85,6 +85,15 @@ public class FileInfo implements Serializable {
 	 *标记 0:删除 1:回收 2:正常
 	 */
 	private Integer delFlag;
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+	private String nickName;
 	public void setFileId(String fileId) {
 		this.fileId=fileId;
 	}
@@ -213,8 +222,4 @@ public class FileInfo implements Serializable {
 		return this.delFlag;
 	}
 
-	@Override
-	public String toString() {
-		return "文件ID:" + (fileId == null?"空": fileId) + ",用户ID:" + (userId == null?"空": userId) + ",文件MD5值:" + (fileMd5 == null?"空": fileMd5) + ",父级ID:" + (filePid == null?"空": filePid) + ",文件大小:" + (fileSize == null?"空": fileSize) + ",文件名称:" + (fileName == null?"空": fileName) + ",文件封面:" + (fileCover == null?"空": fileCover) + ",文件路径:" + (filePath == null?"空": filePath) + ",文件创建时间:" + (createTime == null?"空": DateUtils.format(createTime, DateTimePatternEnum.YYYY_MM_DD_HH_MM_SS.getPattern())) + ",文件最近更新时间:" + (lastUpdateTime == null?"空": DateUtils.format(lastUpdateTime, DateTimePatternEnum.YYYY_MM_DD_HH_MM_SS.getPattern())) + ",0:文件 1:目录:" + (folderType == null?"空": folderType) + ",文件分类 1:视频 2:音频 3:图片 4:文档 5:其他:" + (fileCategory == null?"空": fileCategory) + ",1:视频 2:音频 3:图片 4:pdf 5:doc 6:excel 7:txt 8:code 9:zip 10:其他:" + (fileType == null?"空": fileType) + ",0:转码中 1:转码失败 2:转码成功:" + (status == null?"空": status) + ",加入回收站的时间:" + (recoveryTime == null?"空": DateUtils.format(recoveryTime, DateTimePatternEnum.YYYY_MM_DD_HH_MM_SS.getPattern())) + ",标记 0:删除 1:回收 2:正常:" + (delFlag == null?"空": delFlag);
-	}
 }

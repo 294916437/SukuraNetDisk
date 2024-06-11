@@ -71,4 +71,6 @@ public interface FileInfoService{
 	void removeFile2RecycleBatch(String userId,String fileIds);
 	void recoverFileBatch(String userId,String fileIds);
 	void delFileBatch(String userId,String fileIds,boolean adminOp);
+
+	void checkRootFilePid(String rootFilePid,String userId,String fileId);
 }

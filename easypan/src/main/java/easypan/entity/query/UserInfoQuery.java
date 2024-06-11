@@ -1,5 +1,7 @@
 package easypan.entity.query;
 
+import org.springframework.context.annotation.Configuration;
+
 import java.util.Date;
 
 /**
@@ -7,6 +9,7 @@ import java.util.Date;
  * @Author: 春的樱树
  * @Date: 2024-02-23
  */
+@Configuration
 public class UserInfoQuery extends BaseQuery {
 	/**
 	 *用户顺序

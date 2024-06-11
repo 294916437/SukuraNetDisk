@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import easypan.entity.dto.SessionShareDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -108,5 +109,9 @@ public class ABaseController {
 	protected SessionWebUserDto getUserInfoFromSession(HttpSession session) {
 		SessionWebUserDto sessionWebUserDto = (SessionWebUserDto) session.getAttribute(Constants.SESSION_KEY);
 		return sessionWebUserDto;
+	}
+	protected SessionShareDto getSessionShareFromSession(HttpSession session,String shareId){
+		SessionShareDto sessionShareDto = (SessionShareDto) session.getAttribute(Constants.SESSION_SHARE_KEY + shareId);
+		return sessionShareDto;
 	}
 }

@@ -101,7 +101,7 @@
 	<!--查询列表-->
 	<select id="selectList" resultMap="base_result_map">
 		SELECT <include refid="base_column_list"/> FROM user_info<include refid="query_condition"/>
-		<if test="query.orderBy!=null">order by #{query.orderby}</if>
+		<if test="query.orderBy!=null">order by ${query.orderby}</if>
 		<if test="query.simplePage!=null">limit #{query.simplePage.start},#{query.simplePage.end}</if>
 	</select>
 
@@ -534,11 +534,11 @@
 		update user_info
 		<set>
 			<if test="useSpace!=null">use_space=use_space+#{useSpace}</if>
-			<if test="totalSpace!=null">use_space=total_space+#{totalSpace}</if>
+			<if test="totalSpace!=null">total_space=total_space+#{totalSpace}</if>
 		</set>
 		where user_id=#{userId}
 		<if test="useSpace!=null">and <![CDATA[ (use_space+#{useSpace})<=total_space]]> </if>
-		<if test="totalSpace!=null">and <![CDATA[ (total_space+#{totalaSpace})>=use_space]]> </if>
+		<if test="totalSpace!=null">and <![CDATA[ (total_space+#{totalSpace})>=use_space]]> </if>
 	</update>
 
 </mapper>

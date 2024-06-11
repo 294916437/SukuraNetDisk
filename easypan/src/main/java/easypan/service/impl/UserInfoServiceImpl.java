@@ -48,6 +48,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 	private RedisComponent redisComponent;
 	@Resource
 	private AppConfig appConfig;
+	@Resource
 
 	/**
 	 * 根据条件查询列表
@@ -300,5 +301,24 @@ public class UserInfoServiceImpl implements UserInfoService {
 		updateInfo.setPassword(StringTools.encodeByMd5(password));
 		this.userInfoMapper.updateByEmail(updateInfo, email);
 	}
-	
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void updateUserStatus(String userId, Integer status) {
+		UserInfo userInfo=new UserInfo();
+		userInfo.setStatus(status);
+		if (UserStatusEnum.DISABLE.getStatus().equals(status)){
+			userInfo.setUseSpace(0L);
+			fileInfoMapper.deleteFileByUserId(userId);
+		}
+		userInfoMapper.updateByUserId(userInfo,userId);
+	}
+
+	@Override
+	public void changeUserSpace(String userId, Long newSpace) {
+		Long space=newSpace*Constants.MB;
+		userInfoMapper.updateUserSpace(userId,null,space);
+		redisComponent.updateUserSpaceUse(userId);
+	}
+
 }

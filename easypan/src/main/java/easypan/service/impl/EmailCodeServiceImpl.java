@@ -170,7 +170,7 @@ public class EmailCodeServiceImpl implements EmailCodeService {
             helper.setFrom(appConfig.getSendUserName(),appConfig.getNickName());
             helper.setTo(toEmail);
             sysSettingDto = redisComponent.getSysSettingDto();
-            helper.setSubject(sysSettingDto.getRegisterMailTitle());
+            helper.setSubject(sysSettingDto.getRegisterEmailTitle());
             String htmlContent ="尊敬的用户，\n\n" +
                                 "您的验证码为：" + code + "\n\n"  +
                                 "请在 5 分钟内使用此验证码完成操作。\n\n"  +

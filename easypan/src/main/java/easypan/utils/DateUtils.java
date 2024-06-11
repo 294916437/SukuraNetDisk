@@ -2,6 +2,7 @@ package easypan.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +36,11 @@ public class DateUtils {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	public static Date getAfterDate(Integer day) {
+		Calendar calendar=Calendar.getInstance();
+		calendar.add(Calendar.DAY_OF_YEAR, day);
+		return calendar.getTime();
 	}
 }
 

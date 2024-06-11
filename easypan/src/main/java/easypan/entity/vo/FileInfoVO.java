@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class FileInfoVO {
+
 	/*
 	 * 文件ID
 	 */
@@ -48,6 +49,7 @@ public class FileInfoVO {
 	 * 0:转码中 1:转码失败 2:转码成功
 	 */
 	private Integer status;
+
 
 	public Integer getFileType() {
 		return fileType;
